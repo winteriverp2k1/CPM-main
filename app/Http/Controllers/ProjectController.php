@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\Request;
 use Locale;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Type\Integer;
 
 class ProjectController extends Controller
 {
@@ -24,10 +25,12 @@ class ProjectController extends Controller
     }
     public function getProjectDetail($id)
     {
-        $stage = Project_Stage::where("id_project", $id);
-        $unit = Project_Unit::where("id_project", $id);
+        $stage = Stage::all();
+        $unit = Unit::all();
+        $stage_pj = Project_Stage::where("id_project", $id);
+        $unit_pj = Project_Unit::where("id_project", $id);
         $project = Project::where("id", $id)->first();
-        return view("projectdetail", compact('project', 'stage', 'unit'));
+        return view("projectdetail", compact('project', 'stage', 'unit', 'stage_pj', 'unit_pj'));
     }
     public function addProject()
     {
@@ -116,8 +119,8 @@ class ProjectController extends Controller
     public function delProject($id)
     {
         $record = Project::where("id", $id)->first();
-        if (file_exists(public_path("images/".$record->img))) {
-            unlink(public_path("images/".$record->img));
+        if (file_exists(public_path("images/" . $record->img))) {
+            unlink(public_path("images/" . $record->img));
         }
         Project::where("id", $id)->delete();
         $location = Location::all();
@@ -129,28 +132,20 @@ class ProjectController extends Controller
         return view('projectdetail');
     }
     //many to many table ProjectStage
-    public function addProjectStage($id)
+    public function addProjectStage(Request $request, $id)
     {
-        //lấy project từ id
         $project = Project::where("id", $id)->first();
-        // //lấy toàn bộ stage
-        // $stage = Stage::all();
-        // //tạo project_stage
-        // foreach(Stage::all() as $value)
-        // {
-        //     $project_stage = Project_Stage::created([
-        //         'id_project'=>$project->id,
-        //         'id_stage'=> $value->id ,
-        //         'status'=>'true'
-        //     ]);
-        // }
-        // return view('projectlist', compact('project','location'));
-        $total = DB::table('stage')->get();
-        foreach ($total as $value) {
-            DB::table('project_stage')->updateOrInsert(
-                ['id_stage' => $value, 'id_project' => $project->id]
-            );
-        }
+        $project_stage = Project_Stage::create([
+            'id_project' => $project->getkey('id'),
+            'id_stage' => $request->stage_id,
+            'status' => 1,
+        ]);
+        $stage = Stage::all();
+        $unit = Unit::all();
+        $stage_pj = Project_Stage::where("id_project", $id);
+        $unit_pj = Project_Unit::where("id_project", $id);
+        $project = Project::where("id", $id)->first();
+        return view("projectdetail", compact('project', 'stage', 'unit', 'stage_pj', 'unit_pj'));
     }
     public function getProjectStage($id)
     {
@@ -176,15 +171,19 @@ class ProjectController extends Controller
         return view('projectlist', compact('project'));*/
     }
     //many to many table ProjectUnit
-    public function addProjectUnit($id)
+    public function addProjectUnit(Request $request,$id)
     {
-        //lấy project từ id
         $project = Project::where("id", $id)->first();
-        //tạo project_unit
-        $project_unit = Project_Unit::created([
-            'id_project' => $project->id,
-            'id_unit' => null
+        $project_unit = Project_Unit::create([
+            'id_project' => $project->getkey('id'),
+            'id_unit' => $request->unit_id,
         ]);
+        $stage = Stage::all();
+        $unit = Unit::all();
+        $stage_pj = Project_Stage::where("id_project", $id);
+        $unit_pj = Project_Unit::where("id_project", $id);
+        $project = Project::where("id", $id)->first();
+        return view("projectdetail", compact('project', 'stage', 'unit', 'stage_pj', 'unit_pj'));
     }
     public function getProjectUnit($id)
     {

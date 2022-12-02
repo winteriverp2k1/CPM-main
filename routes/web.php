@@ -65,3 +65,10 @@ Route::post('/stage/update/{id}',['as'=>'updateStage','uses'=>'StageController@u
 
 Route::get('stagedetail', ['uses'=>'StageController@detailStage']);
 Route::get('stage/{id}',['as'=>'stagedel','uses'=>'StageController@delStage']);
+
+
+//Project_Stage
+Route::post('projectdetail/{id}', ['as'=>'projstageadd','uses'=>'ProjectController@addProjectStage']);
+
+//Project_Unit
+Route::post('projectdetail/unit/{id}', ['as'=>'projunitadd','uses'=>'ProjectController@addProjectUnit']);

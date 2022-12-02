@@ -10,6 +10,6 @@ class Project_Stage extends Pivot
 {
     public $incrementing = true;
     protected $table = "Project_Stage";
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = ['id_project', 'id_stage', 'status'];
 }

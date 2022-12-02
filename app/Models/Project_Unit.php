@@ -10,6 +10,6 @@ class Project_Unit extends Pivot
 {
     public $incrementing = true;
     protected $table = "Project_Unit";
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = ['id_project', 'id_unit'];
 }

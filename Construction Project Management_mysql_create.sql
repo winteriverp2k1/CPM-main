@@ -7,9 +7,8 @@ CREATE TABLE `project` (
 	`budget` bigint,
 	`profit` bigint,
 	`size` double,
-	`status` int,
+	`status` BOOLEAN,
 	`description` longtext,
-	`img` varchar(255),
 	PRIMARY KEY (`id`)
 );
 
