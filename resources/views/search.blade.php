@@ -19,7 +19,7 @@
                 
             </th>
         </tr>
-        <?php foreach ($project as $x) { ?>
+        <?php foreach ($value as $x) { ?>
             <tr>
                 <td><?php echo $x['id']; ?></td>
                 <td><?php echo $x['name']; ?></td>

@@ -8,13 +8,8 @@ use App\Models\Project_Stage;
 use App\Models\Project_Unit;
 use App\Models\Stage;
 use App\Models\Unit;
-use GuzzleHttp\Handler\Proxy;
-use GuzzleHttp\Promise\Create;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\Request;
-use Locale;
 use Illuminate\Support\Facades\DB;
-use Ramsey\Uuid\Type\Integer;
 
 class ProjectController extends Controller
 {
@@ -23,12 +18,18 @@ class ProjectController extends Controller
         $project = Project::paginate(20);
         return view('projecthome', compact('project'));
     }
+    public function project()
+    {
+        $project = Project::paginate(20);
+        return view('projectlist', compact('project'));
+    }
     public function getProjectDetail($id)
     {
+        $record = Project::where("id", $id)->first();
         $stage = Stage::all();
         $unit = Unit::all();
-        $stage_pj = Project_Stage::where("id_project", $id);
-        $unit_pj = Project_Unit::where("id_project", $id);
+        $stage_pj = (array)Project_Stage::where("id_project", $record->id)->get();
+        $unit_pj = (array)Project_Unit::where("id_project", $record->id)->get();
         $project = Project::where("id", $id)->first();
         return view("projectdetail", compact('project', 'stage', 'unit', 'stage_pj', 'unit_pj'));
     }
@@ -41,7 +42,6 @@ class ProjectController extends Controller
     }
     public function insertProject(Request $request)
     {
-        //tạo project trước
         $this->validate(request(), ['name' => 'required']);
         $filename = "";
 
@@ -79,20 +79,7 @@ class ProjectController extends Controller
     }
     public function updateProject(Request $request, $id)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'size' => 'required',
-        //     'id_location' => 'required',
-        //     'budget' => 'required',
-        //     'description' => 'required',
-        //     'end_date' => 'required',
-        //     'started_date' => 'required',
-        //     'status' => 'required',
-        //     'profit' => 'required',
-        //     'img' => 'required',
-        // ]);
         $filename = "";
-
         if ($request->file('fileUpload')->isValid()) {
             $filename = $request->fileUpload->getClientOriginalName();
             $request->fileUpload->move('images/', $filename);
@@ -119,13 +106,21 @@ class ProjectController extends Controller
     public function delProject($id)
     {
         $record = Project::where("id", $id)->first();
-        if (file_exists(public_path("images/" . $record->img))) {
-            unlink(public_path("images/" . $record->img));
+        if ($record->Stages()->exists()|| $record->Units()->exists())
+        {
+            return abort('404','Khong the xoa');
         }
-        Project::where("id", $id)->delete();
-        $location = Location::all();
-        $project = Project::paginate(20);
-        return view('projectlist', compact('project', 'location'));
+        else
+        {
+            if (file_exists(public_path("images/" . $record->img))) {
+                unlink(public_path("images/" . $record->img));
+            }
+            Project::where("id", $id)->delete();
+            $location = Location::all();
+            $project = Project::paginate(20);
+            return view('projectlist', compact('project', 'location'));
+        }
+        
     }
     public function detailProject()
     {
@@ -138,7 +133,7 @@ class ProjectController extends Controller
         $project_stage = Project_Stage::create([
             'id_project' => $project->getkey('id'),
             'id_stage' => $request->stage_id,
-            'status' => 1,
+            'status' => $request->status,
         ]);
         $stage = Stage::all();
         $unit = Unit::all();
@@ -147,28 +142,11 @@ class ProjectController extends Controller
         $project = Project::where("id", $id)->first();
         return view("projectdetail", compact('project', 'stage', 'unit', 'stage_pj', 'unit_pj'));
     }
-    public function getProjectStage($id)
-    {
-        $stage = Project_Stage::where("id_project", $id);
-        return view('', compact('stage'));
-    }
-    public function editProject_Stage($id)
-    {
-        $stage = Stage::all();
-        $project = Project::where("id", $id)->first();
-        return view('projectedit', compact('project', 'stage'));
-    }
-    public function updateProject_Stage($id)
-    {
-        $project = Project::where("id", $id)->first();
-        return view('projectlist', compact('project'));
-    }
     public function deleteProjectStage($id_project, $id_stage)
     {
-        /*$project_stage = Project_Stage::where("id_project", $id_project)->first();
-        Project::where("id", $id)->delete();
+        $project_stage = Project_Stage::where("id_project", $id_project)->where("id_stage",$id_stage)->delete();
         $project = Project::paginate(20);
-        return view('projectlist', compact('project'));*/
+        return view('projectlist', compact('project'));
     }
     //many to many table ProjectUnit
     public function addProjectUnit(Request $request,$id)
@@ -185,15 +163,10 @@ class ProjectController extends Controller
         $project = Project::where("id", $id)->first();
         return view("projectdetail", compact('project', 'stage', 'unit', 'stage_pj', 'unit_pj'));
     }
-    public function getProjectUnit($id)
+    public function deleteProjectUnit($id_project, $id_unit)
     {
-        $unit = Project_Unit::where("id_project", $id);
-        return view('', compact('unit'));
-    }
-    public function updateProjectUnit()
-    {
-    }
-    public function deleteProjectUnit()
-    {
+        $project_unit = Project_Unit::where("id_project", $id_project)->where("id_unit",$id_unit)->delete();
+        $project = Project::paginate(20);
+        return view('projectlist', compact('project'));
     }
 }

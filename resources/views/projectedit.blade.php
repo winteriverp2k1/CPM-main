@@ -1,5 +1,4 @@
-<!-- Long-->
-@extends('trangchu')
+@extends('header_footer')
 @section('content')
 <div class="container container-fluid">
     @if($errors->any())
@@ -13,91 +12,139 @@
     @endif
     <form action="{{ route('updateProject',['id'=> $project->id])}}" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="id">PROJECT ID</label>
-            <div class="col-md-4">
-                <input value="{{$project->id}}" id="id" name="id" placeholder="PROJECT ID" class="form-control input-md" required="" type="text" disabled>
+        <h2>Chỉnh sửa dự án</h2>
+
+
+        <div class="container-fluid">
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label" for="id">Project ID</label>
+                <div>
+                    <input value="{{$project->id}}" id="id" name="id" placeholder="PROJECT ID" class="form-control input-md" required="" type="text" disabled>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group col-md-6">
+                <label class="control-label" for="name">Tên dự án</label>
+                <div>
+                    <input value="{{$project->name}}" id="name" name="name" placeholder="PROJECT NAME" class="form-control input-md" required="" type="text">
+                </div>
             </div>
         </div>
+        <div class="row">
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="name">TÊN DỰ ÁN</label>
-            <div class="col-md-4">
-                <input value="{{$project->name}}" id="name" name="name" placeholder="PROJECT NAME" class="form-control input-md" required="" type="text">
+
+            <!-- Text input-->
+            <div class="form-group col-md-6 ">
+                <label class="control-label" for="budget">Ngân sách</label>
+                <div >
+                    <input value="{{$project->budget}}" id="budget" name="budget" placeholder="BUDGET" class="form-control input-md" required="" type="text">
+                </div>
             </div>
+            <!-- Datepicker Basic-->
+            <div class="form-group col-md-6">
+                <label  for="started_date">Chọn ngày thực hiện</label>
+                <div >
+                    <input data-date-format='yyyy-mm-dd' name="started_date" placeholder="Chọn ngày thực hiện" type="date" id="started_date" class="form-control">
+                </div>
+                
+
+            </div>
+
+
         </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="budget">NGÂN SÁCH</label>
-            <div class="col-md-4">
-                <input value="{{$project->budget}}" id="budget" name="budget" placeholder="BUDGET" class="form-control input-md" required="" type="text">
+        <div class="row">
 
-            </div>
-        </div>
         <!-- Datepicker Basic-->
-        <div class="display: block">
-            <label for="started_date">Chọn ngày thực hiện...</label>
-            <input data-date-format='yyyy-mm-dd' name="started_date" placeholder="Chọn ngày thực hiện" type="date" id="started_date">
+        <div class="form-group col-md-6">
+                    <label  for="end_date">Chọn ngày kết thúc</label>
+                    <div >
+                        <input data-date-format='yyyy-mm-dd' name="end_date" placeholder="Chọn ngày kết thúc" type="date" id="end_date" class="form-control">
+                    </div>
+                </div>
+                <!-- Select Basic -->
+                <div class="form-group col-md-6">
+                    <label class="control-label" for="locations">Vị trí</label>
+                    <div >
+                        <select id="locations" name="locations" class="form-control">
+                            <?php foreach ($location as $x) { ?>
+                                <option value="<?php echo $x['id']; ?>"><?php echo $x['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+
 
         </div>
-        <!-- Datepicker Basic-->
-        <div class="display: block">
-            <label for="end_date">Chọn ngày kết thúc...</label>
-            <input data-date-format='yyyy-mm-dd' name="end_date" placeholder="Chọn ngày kết thúc" type="date" id="end_date">
+
+
+
+        <div class="row">
+
+
+
+
+                <!-- Text input-->
+                <div class="form-group col-md-6">
+                    <label class="control-label" for="profit">Danh thu ước tính dự án</label>
+                    <div>
+                        <input value="{{$project->profit}}" id="profit" name="profit" placeholder="profit" class="form-control input-md" required="" type="text">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group col-md-6">
+                    <label class="control-label" for="size">Diện tích</label>
+                    <div >
+                        <input value="{{$project->size}}" id="size" name="size" placeholder="size" class="form-control input-md" required="" type="text">
+                    </div>
+                </div>
+
+
 
         </div>
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="locations">VỊ TRÍ</label>
-            <div class="col-md-4">
-                <select id="locations" name="locations" class="form-control">
-                    <?php foreach ($location as $x) { ?>
-                        <option value="<?php echo $x['id']; ?>"><?php echo $x['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="profit">DANH THU ƯỚC TÍNH DỰ ÁN</label>
-            <div class="col-md-4">
-                <input value="{{$project->profit}}" id="profit" name="profit" placeholder="profit" class="form-control input-md" required="" type="text">
-            </div>
-        </div>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="size">DIỆN TÍCH</label>
-            <div class="col-md-4">
-                <input value="{{$project->size}}" id="size" name="size" placeholder="size" class="form-control input-md" required="" type="text">
-            </div>
-        </div>
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="status">TRẠNG THÁI DỰ ÁN</label>
-            <div class="col-md-4">
-                <select id="status" name="status" class="form-control">
-                    <option value="-1">Tạm ngưng</option>
-                    <option value="0">Đang thực hiện</option>
-                    <option value="1">Hoàn tất</option>
-                </select>
-            </div>
-        </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="description">Chi tiết dự án</label>
-            <div class="col-md-4">
-                <input value="{{$project->description}}" id="description" name="description" placeholder="description" class="form-control input-md" required="" type="text">
+        
+        <div class="row">
+
+                                    
+            <!-- Select Basic -->
+            <div class="form-group col-md-6">
+                <label class="control-label" for="status">Trạng thái dự án</label>
+                <div>
+                    <select id="status" name="status" class="form-control">
+                        <option value="-1">Tạm ngưng</option>
+                        <option value="0">Đang thực hiện</option>
+                        <option value="1">Hoàn tất</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group col-md-6">
+                <label class="control-label" for="description">Chi tiết dự án</label>
+                <div >
+                    <input value="{{$project->description}}" id="description" name="" placeholder="description" class="form-control input-md" required="" type="text">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+                <!-- File Button -->
+                <div class="form-group col-md-12">
+                <label class="for="img">Hình dự án:</label>
+                <div >
+                    <input type="file" class="form-control" id="fileUpload" name="fileUpload">
+                </div>           
             </div>
         </div>
-        <!-- File Button -->
-        <div class="form-group">
-            <label for="img">Hình dự án:</label>
-            <input type="file" class="form-control" id="fileUpload" name="fileUpload">
+        <div class="ma form-group" style="margin-left:0px">
+                <button style="cursor:pointer" type="submit" class="btn btn-primary">Sửa</button>
         </div>
-        <input type="submit" value="Submit">
+        </div> 
     </form>
 </div>
 

@@ -1,5 +1,4 @@
-<!-- Long-->
-@extends('projecthome')
+@extends('header_footer')
 @section('content')
 <div class="container-fluid">
         <h2>Danh sách tiến độ</h2>
@@ -20,10 +19,13 @@
                     echo "True";
                     else echo "False";
                      @endphp</td>
-                <td><a href="{{ route('stageupdate',['id'=>$s->id]) }}">Sửa</a></td>
+                <td><a href="{{ route('stageupde',['id'=>$s->id]) }}">Sửa</a></td>
                 <td><a href="{{ route('stagedel',['id'=>$s->id]) }}">Xóa</a></td>
             </tr>
             @endforeach
         </table>
+    </div>
+    <div class="btnadd">
+        <a href="{{route('stagead')}}">Thêm tiến độ</a>
     </div>
 @stop 

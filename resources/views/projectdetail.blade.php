@@ -1,41 +1,91 @@
-@extends('projecthome')
+@extends('header_footer')
 @section('content')
-
-<div class="container-fluid">
-    <div class="projectdetail">
-        Mã dự án: {{$project->id}} <br>
-        Tên dự án: {{$project->name}} <br>
-        Ngày bắt đầu: {{$project->started_date}}<br>
-        Ngày kết thúc: {{$project->end_date}} <br>
-        Địa điểm: {{$project->location->name}}
-        Ngân sách: @php echo number_format($project->budget); @endphp <br>
-        Lợi nhuận: @php echo number_format($project->profit); @endphp<br>
-        Diện tích: @php echo number_format($project->size); @endphp <br>
-        Trạng thái:
-        <?php if ($project->status == -1) {
-            echo "Ngừng";
-        } else if ($project->status == 0) {
-            echo "Đang thực hiện";
-        } else {
-            echo "Đã hoàn thành";
-        }
-        ?>
-        <br>Miêu tả: {{$project->description}}<br>
-        <img src="/images/{{$project->img}}" width="150" height="150">
+<h2>Chi tiết dự án</h2>
+    <div class = "container-fluid">
+        <div class="projectdetail">
+            <div class="headnav">
+                <img src="/images/{{$project->img}}" width="300" height="380" >
+                <div class="media-body">
+                    <ul class = "list-group">
+                        <li class="list-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="fo"><span>Mã dự án</span>: <b>{{$project->id}}</b></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="fo"><span>Tên dự án</span>: <b>{{$project->name}}</b></p>
+                                </div>
+                            </div:>
+                        </li>
+                        <li class="list-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                <p class="fo"><span>Ngày bắt đầu</span>: <b>{{$project->started_date}}</b></p>
+                                </div>
+                                <div class="col-md-6">
+                                <p class="fo"><span>Ngày kết thúc</span>: <b>{{$project->end_date}}</b></p>
+                                </div>
+                            </div:>
+                        </li>
+                        <li class="list-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                <p class="fo"><span>Địa điểm</span>: <b>{{$project->location->name}}</b></p>
+                                </div>
+                                <div class="col-md-6">
+                                <p class="fo"><span>Ngân sách</span>: <b>@php echo number_format($project->budget); @endphp</b></p>
+                                </div>
+                            </div:>
+                        </li>
+                        <li class="list-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                <p class="fo"><span>Lợi nhuận</span>: <b>@php echo number_format($project->profit); @endphp</b></p>
+                                </div>
+                                <div class="col-md-6">
+                                <p class="fo"><span>Diện tích</span>: <b>@php echo number_format($project->size); @endphp</b></p>
+                                </div>
+                            </div:>
+                        </li>
+                        <li class="list-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="fo"><span>Trạng thái</span>: 
+                                        <b><?php if($project->status == -1)
+                                        {
+                                            echo "Ngừng";
+                                        } else if($project->status == 0)
+                                        {
+                                            echo "Đang thực hiện";
+                                        }
+                                        else 
+                                        {
+                                            echo "Đã hoàn thành";
+                                        }
+                                        ?>
+                                        </b>
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                <p class="fo"><span>Miêu tả</span>: <b>{{$project->description}}</b></p>
+                                </div>
+                            </div:>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="container container-fluid">
-    <h2>Danh sách các tổ thi công thực hiện dự án này</h2>
-    <?php foreach ($unit_pj as $x) { ?>
-        <h4><?php echo $x->Unit->name; ?> ?></h4>
-    <?php } ?>
-    <h2>Danh sách các phân đoạn thực hiện dự án này</h2>
-    <div>
-        @foreach ($stage_pj as $x)
-            x - {{ $x->id_stage }} <br />
-        @endforeach
+    <div class="container container-fluid">
+        <h2>Danh sách các tổ thi công thực hiện dự án này</h2>
+        <?php foreach ($unit_pj as $x => $value) { ?>
+            <h4><?php echo $x; $value; ?></h4>
+        <?php } ?>
+        <h2>Danh sách các phân đoạn thực hiện dự án này</h2>
+        <?php foreach ($stage_pj as $x => $value) { ?>
+            <h4><?php echo $x; $value; ?></h4>
+        <?php } ?>
     </div>
-</div>
 
 <br>
 <!-- Button trigger modal -->
@@ -55,7 +105,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                     {{ csrf_field() }}
                     <!-- Select Basic -->
                     <div class="form-group">
@@ -66,6 +116,16 @@
                                     <!-- <option value="<?php echo $x['id']; ?>"><?php echo $x['name']; ?></option> -->
                                     <option value="{{$x->id}}">{{$x->name}}</option>
                                 <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="status">Trạng thái</label>
+                        <div class="col-md-4">
+                            <select class="col-xs-4 text-center center" id="status" name="status" class="form-control">
+                                <option value="-1">Chưa hoàn tất</option>
+                                <option value="0">Đang thực hiện</option>
+                                <option value="1">Đã hoàn tất</option>
                             </select>
                         </div>
                     </div>
@@ -97,7 +157,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                     {{ csrf_field() }}
                     <!-- Select Basic -->
                     <div class="form-group">

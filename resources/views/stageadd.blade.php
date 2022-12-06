@@ -10,6 +10,7 @@
             </ul>
         </div>
         @endif
+        <h2>Thêm tiến độ xây dựng</h2>
         <form method="POST" action="{{route('stageadd')}}" enctype="multipart/form-data">
             {{csrf_field()}}
             <div class="form-group">

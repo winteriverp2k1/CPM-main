@@ -10,6 +10,7 @@
             </ul>
         </div>
         @endif
+        <h2>Thêm địa điểm thi công</h2>
         <form method="POST" action="{{route('locaadd')}}" enctype="multipart/form-data">
             {{csrf_field()}}
             <div class="form-group">

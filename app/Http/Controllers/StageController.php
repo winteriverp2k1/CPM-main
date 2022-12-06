@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Stage;
 
@@ -16,7 +14,6 @@ class StageController extends Controller
 
     public function addStage()
     {
-
         return view ('stageadd');
     }
 
