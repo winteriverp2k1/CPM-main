@@ -55,15 +55,15 @@ Route::post('/unit/add',['as'=>'unitadd','uses'=>'UnitController@insertUnit']);
 Route::get('unitdetail/{id}', ['as' =>'unitdet','uses'=>'UnitController@detailUnit']);
 Route::get('unit/{id}', ['as'=>'unitdel','uses'=>'UnitController@delUnit']);
 Route::get('unitupdate/{id}', ['as'=>'unitupdate','uses'=>'UnitController@upUnit']);
-Route::post('unitupdate/{id}',['as'=>'update','uses'=>'UnitController@updateUnit']);
+Route::post('unit/update/{id}',['as'=>'updateUnit','uses'=>'UnitController@updateUnit']);
 
 //stage
 Route::get('stage',  ['as'=>'prosta', 'uses'=>'StageController@stage']);
 Route::get('stageadd', ['as'=>'stagead','uses'=>'StageController@addStage']);
 Route::post('/stage/add', ['as' => 'stageadd', 'uses' => 'StageController@insertStage']);
-Route::get('stageupdate/{id}', ['as'=>'stageupde','uses'=>'StageController@upStage']);
+Route::get('stageupdate/{id}', ['as'=>'stageupdate','uses'=>'StageController@upStage']);
 Route::post('/stage/update/{id}',['as'=>'updateStage','uses'=>'StageController@updateStage']);
-Route::get('stage/{id}',['as'=>'stagedel','uses'=>'StageController@delStage']);
+Route::get('stage/delete/{id}',['as'=>'stagedel','uses'=>'StageController@delStage']);
 Route::get('stagedetail', ['uses'=>'StageController@detailStage']);
 
 //Project_Stage

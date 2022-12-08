@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Locale;
+
 class LocationController extends Controller
 {
     public function location()
@@ -32,5 +34,12 @@ class LocationController extends Controller
     {
         $loca = Location::where("Id",$id)->first();
         return view ('locationdetail', ['loca'=>$loca]);
+    }
+    public function delLocation($id)
+    {
+        $record = Location::where("id",$id)->first();
+        Location::where("id",$id)->delete();
+        $location = Location::paginate(20);
+        return view('location',compact('location'));
     }
 }

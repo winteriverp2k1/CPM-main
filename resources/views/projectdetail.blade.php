@@ -77,14 +77,8 @@
         </div>
     </div>
     <div class="container container-fluid">
-        <h2>Danh sách các tổ thi công thực hiện dự án này</h2>
-        <?php foreach ($unit_pj as $x => $value) { ?>
-            <h4><?php echo $x; $value; ?></h4>
-        <?php } ?>
-        <h2>Danh sách các phân đoạn thực hiện dự án này</h2>
-        <?php foreach ($stage_pj as $x => $value) { ?>
-            <h4><?php echo $x; $value; ?></h4>
-        <?php } ?>
+    <h2>Danh sách các tổ thi công thực hiện dự án này</h2>
+    <h2>Danh sách các phân đoạn thực hiện dự án này</h2>    
     </div>
 
 <br>

@@ -7,7 +7,7 @@
             <tr>
                 <th>Mã tiến độ</th>
                 <th>Tên tiến độ</th>
-                <th>Hoạt động</th>
+                <th>Trạng thái</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -16,10 +16,10 @@
                 <td>{{ $s->id }}</td>
                 <td>{{ $s->name }}</td>
                 <td>@php if($s->is_enabled == 1)
-                    echo "True";
-                    else echo "False";
+                    echo "Đang tiến hành";
+                    else echo "Đã ngừng";
                      @endphp</td>
-                <td><a href="{{ route('stageupde',['id'=>$s->id]) }}">Sửa</a></td>
+                <td><a href="{{ route('stageupdate',['id'=>$s->id]) }}">Sửa</a></td>
                 <td><a href="{{ route('stagedel',['id'=>$s->id]) }}">Xóa</a></td>
             </tr>
             @endforeach

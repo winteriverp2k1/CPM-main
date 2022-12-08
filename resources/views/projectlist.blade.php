@@ -43,7 +43,7 @@
                 <td class="bar" colspan="3">
                     <a href="{{route('projedit',['id'=>$x->id])}}">Sửa</a>
                     <a href="{{route('projdetail',['id'=>$x->id])}}'">Chi tiết</a>
-                    <a href="{{route('projdel',['id'=>$x->id])}}" >Xoá</a>
+                    <a onclick="confirmation()" href="{{route('projdel',['id'=>$x->id])}}" >Xoá</a>
                 </td>
             </tr>
         <?php } ?>
@@ -54,9 +54,3 @@
     <a href="{{route('projadd')}}">Thêm dự án</a>
 </div>
 @stop
-<script type="text/javascript">
-    function confirmation() {
-        event.preventDefault()
-        return confirm('Bạn có muốn xóa đối tượng này không');
-    }
-</script>

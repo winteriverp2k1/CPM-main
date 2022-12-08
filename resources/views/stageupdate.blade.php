@@ -10,11 +10,11 @@
             <div class="ma form-group">
                 <label for="is_enabled">Hoạt động</label>
                 <select name="is_enabled" id="is_enabled" class="form-control">
-                    <option value="1">True</option>
-                    <option value="0">False</option>
+                    <option value="1">Đang tiến hành</option>
+                    <option value="0">Đã ngừng</option>
                 </select>
             </div>
-            <div class="ma1 form-group">
+            <div class="ma form-group">
                 <button style="cursor:pointer" type="submit" class="btn btn-primary">Xác nhận</button>
             </div>
         </form>

@@ -1,7 +1,7 @@
 @extends('header_footer')
 @section('content')
 <h2>Chỉnh sửa nhóm thi công</h2>
-<form class=method="POST" action="{{ route('update',['id'=> $unit->id])}}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('updateUnit',['id'=> $unit->id])}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="ma form-group">
             <label for="unitname">Tên nhóm thi công</label>
@@ -15,7 +15,5 @@
         <div class="ma form-group">
             <button style="cursor:pointer" type="submit" class="btn btn-primary">Xác nhận</button>
         </div>
-        
-        
 </form>
 @stop
