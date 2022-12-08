@@ -14,7 +14,6 @@
             <th>Diện tích</th>
             <th>Trạng thái</th>
             <th>Miêu tả</th>
-            <th>Ảnh mô tả</th>
             <th colspan="3">Hành động
                 
             </th>
@@ -39,7 +38,6 @@
                     }
                     ?></td>
                 <td><?php echo $x['description']; ?></td>
-                <td><?php echo $x['img']; ?></td>
                 <td class="bar" colspan="3">
                     <a href="{{route('projedit',['id'=>$x->id])}}">Sửa</a>
                     <a href="{{route('projdetail',['id'=>$x->id])}}'">Chi tiết</a>
@@ -48,7 +46,7 @@
             </tr>
         <?php } ?>
     </table>
-    
+    {{$project->links()}}
 </div>
 <div class="btnadd">
     <a href="{{route('projadd')}}">Thêm dự án</a>

@@ -9,7 +9,7 @@ class LocationController extends Controller
 {
     public function location()
     {
-        $location = Location::all();
+        $location = Location::paginate(5);
         return view ('location', compact('location'));
     }
 
@@ -27,7 +27,7 @@ class LocationController extends Controller
             'name'=>$request->locaname,
             'detail'=>$request->locadetail,
         ]);
-        $location= Location::paginate(15);
+        $location= Location::paginate(5);
         return view ("location", compact('location'));
     }
     public function detailLocation($id)
@@ -39,7 +39,7 @@ class LocationController extends Controller
     {
         $record = Location::where("id",$id)->first();
         Location::where("id",$id)->delete();
-        $location = Location::paginate(20);
+        $location = Location::paginate(5);
         return view('location',compact('location'));
     }
 }

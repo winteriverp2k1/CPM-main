@@ -15,12 +15,12 @@ class ProjectController extends Controller
 {
     public function home()
     {
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projecthome', compact('project'));
     }
     public function project()
     {
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projectlist', compact('project'));
     }
     public function getProjectDetail($id)
@@ -61,14 +61,14 @@ class ProjectController extends Controller
             'profit' => $request->profit,
             'img' => $filename
         ]);
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         $location = Location::all();
         return view('projectlist', compact('project', 'location'));
     }
     public function listProject()
     {
         $location = Location::all();
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projectlist', compact('project', 'location'));
     }
     public function editProject($id)
@@ -100,7 +100,7 @@ class ProjectController extends Controller
 
 
         $location = Location::all();
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projectlist', compact('project', 'location'));
     }
     public function delProject($id)
@@ -111,7 +111,7 @@ class ProjectController extends Controller
         }
         Project::where("id", $id)->delete();
         $location = Location::all();
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projectlist', compact('project', 'location'));
     }
     // public function detailProject()
@@ -137,7 +137,7 @@ class ProjectController extends Controller
     public function deleteProjectStage($id_project, $id_stage)
     {
         $project_stage = Project_Stage::where("id_project", $id_project)->where("id_stage", $id_stage)->delete();
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projectlist', compact('project'));
     }
     //many to many table ProjectUnit
@@ -158,7 +158,7 @@ class ProjectController extends Controller
     public function deleteProjectUnit($id_project, $id_unit)
     {
         $project_unit = Project_Unit::where("id_project", $id_project)->where("id_unit", $id_unit)->delete();
-        $project = Project::paginate(20);
+        $project = Project::paginate(5);
         return view('projectlist', compact('project'));
     }
 }

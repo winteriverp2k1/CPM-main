@@ -22,6 +22,7 @@
             </tr>
             @endforeach
         </table>
+        {{$unit->links()}}
     </div>
     <div class="btnadd">
         <a href="{{route('unitad')}}">Thêm đơn vị thi công</a>

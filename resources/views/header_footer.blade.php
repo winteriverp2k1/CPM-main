@@ -62,10 +62,18 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/login">Đăng nhập</a>
+          @if(Auth::user())
+            <a class="nav-link" href="#">{{Auth::user()->name}}</a>
+          @else
+            <a class="nav-link" href="/login">Dang nhap</a>
+          @endif
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Đăng xuất</a>
+          <form action="{{route('logout')}}" method="POST">
+            @csrf
+            <button class="nav-link" type="submit">Đăng xuất</button>
+          </form>
+          <!-- <a class="nav-link" href="{{route('logout')}}">Đăng xuất</a> -->
         </li>
       </ul>
       <div class="col20">
@@ -76,6 +84,16 @@
       </div>
 
     </nav>
+    @if ($errors->any())
+      <div class="alert alert-danger alert-dismissible" role="alert">
+          <ol>
+              @foreach ($errors->all() as $item)
+                  <li>{{$item}}</li>
+              @endforeach
+          </ol>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    @endif
     @yield('content')
 
   </div>

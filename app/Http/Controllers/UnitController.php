@@ -10,7 +10,7 @@ class UnitController extends Controller
 {
     public function unit()
     {
-        $unit = Unit::paginate(20);//lấy 20 record từ bảng unit
+        $unit = Unit::paginate(5);//lấy 5 record từ bảng unit
         return view ('unit', compact('unit'));
     }
     public function addUnit()
@@ -25,13 +25,13 @@ class UnitController extends Controller
             'name'=>$request->unitname,
             'created_date'=> $request->created_date
         ]);
-        $unit = Unit::paginate(20);
+        $unit = Unit::paginate(5);
         return view('unit',compact('unit'));
     }
     public function delUnit($id)
     {
         Unit::where("id",$id)->delete();
-        $unit = Unit::paginate(20);
+        $unit = Unit::paginate(5);
         return view('unit',compact('unit'));
     }
     public function detailUnit($id)

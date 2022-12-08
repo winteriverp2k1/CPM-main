@@ -20,6 +20,7 @@
                 </tr>
             @endforeach
         </table>
+        {{$location->links()}}
     </div>
     <div class="btnadd">
         <a href="{{route('locadd')}}">Thêm địa điểm</a>

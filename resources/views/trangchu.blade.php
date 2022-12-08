@@ -66,7 +66,11 @@
 
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Dang nhap</a>
+                @if(Auth::user()->name != null)
+                <a class="nav-link" href="#">{{Auth::user()->name}}</a>
+                @else
+                    <a class="nav-link" href="#">Dang nhap</a>
+                @endif
             </li>
             <li class="nav-item">
             <a class="nav-link" href="#">Dang xuat</a>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stage;
-
+use Illuminate\Support\Facades\DB;
 class StageController extends Controller
 {
     public function stage()
@@ -39,7 +39,7 @@ class StageController extends Controller
     {
         $record = Stage::where("id",$id)->first();
         Stage::where("id",$id)->delete();
-        $stage = Stage::paginate(20);
+        $stage = Stage::paginate(5);
         return view('stage',compact('stage'));
     }
 

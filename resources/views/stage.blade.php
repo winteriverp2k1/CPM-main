@@ -24,6 +24,7 @@
             </tr>
             @endforeach
         </table>
+        
     </div>
     <div class="btnadd">
         <a href="{{route('stagead')}}">Thêm tiến độ</a>

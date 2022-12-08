@@ -1,15 +1,18 @@
 @extends('header_footer')
 @section('content')
+
 <div class="container mt-3">
         <h2>Đăng nhập</h2>
-        <form>
+        <form action="{{route('login')}}" method="POST">
+          @csrf
           <div class="ma mb-3 mt-3">
             <label class="email"><i class="fa fa-envelope"></i>Email<span>*</span></label>
             <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email">
           </div>
           <div class="ma mb-3">
             <label class="pw"><i class="fa fa-unlock-alt"></i>Password<span>*</span></label>
-            <input type="password" class="form-control" id="pw" placeholder="Nhập mật khẩu "  name="pswd">
+            <input type="password" class="form-control" id="pw" placeholder="Nhập mật khẩu "  name="password">
+            
           </div>
           <div class=" ma form-check mb-3">
             <label class="form-check-label">
