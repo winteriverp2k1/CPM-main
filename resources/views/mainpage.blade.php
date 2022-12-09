@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Dự án</h4>
                     <p class="card-text">Tổng các dự án đang có là <span>{{$project_count}}</span></p>               
-                    <a href="/project" style="background-color:red" class="btn btn-primary">Xem chi tiết</a>
+                    <a href="/projectlist" style="background-color:red" class="btn btn-primary">Xem chi tiết</a>
                 </div>
             </div>
         </div>
@@ -47,20 +47,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col col-md-4">
-            
-            <div class="card" style="width:100% ; border:0px">
-
-               
-         
-                <i class="fa-solid fa-clipboard-user"style="font-size:100px; margin:20px 0px ;color: darkcyan;"></i>
-                <div class="card-body">
-                    <h4 class="card-title">Nhân viên</h4>
-                    <p class="card-text">Tổng nhân viên là: <span></span></p>
-                    <a href="{{route('prostaf')}}" style="background-Color: darkcyan;" class="btn btn-primary">Xem chi tiết</a>
-                </div>
-            </div>
-        </div>
+       
         <div class="col col-md-4">
             
             <div class="card" style="width:100% ; border:0px">
@@ -69,7 +56,7 @@
                 <i class="fa-solid fa-list-check" style="font-size:100px; margin:20px 0px ;color: darkgreen;"></i>    
                 <div class="card-body">
                     <h4 class="card-title">Tiến độ</h4>
-                    <p class="card-text">Số các dự án đang thi công là <span>{{$stage_count}}</span></p>
+                    <p class="card-text">Số các tiến độ dự án là <span>{{$stage_count}}</span></p>
                     <a href="/stage"style="background-Color: darkgreen;" class="btn btn-primary">Xem chi tiết</a>
 
                 </div>

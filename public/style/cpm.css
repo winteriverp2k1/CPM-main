@@ -44,7 +44,7 @@ h2 {
 }
 
 .col20 {
-    margin-left: 80px;
+    margin-left: 200px;
 }
 
 
@@ -141,8 +141,16 @@ div.thr>hr {
 .nav-item:hover {
     background-color: #222222;
     transition-duration: 1.5s;
+    
 }
-
+button.nav-link{
+    background-color: #343a40;
+    border:#343a40 ;
+}
+button.nav-link:hover{
+    background-color: #222222;
+    transition-duration: 1.5s;
+}
 
 /* list action */
 
@@ -388,11 +396,11 @@ div.login>span>a:hover {
 
 /* them  */
 
-input[type="text"] {
+/* input[type="text"] {
     border: 1px solid;
     border-radius: 5px;
     padding: 10px 10px;
-}
+} */
 
 input[type="date"] {
     border: 1px solid;
